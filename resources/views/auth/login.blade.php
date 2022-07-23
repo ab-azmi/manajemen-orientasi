@@ -50,6 +50,10 @@
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>
+
+                <a href="{{ route('register') }}" class="inline-flex items-center px-4 py-2 bg-transparent border border-gray-800 rounded-md font-semibold text-xs text-black uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 hover:text-white focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ml-3">
+                    {{ __('Register') }}
+                </a>
             </div>
         </form>
     </x-auth-card>

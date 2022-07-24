@@ -22,7 +22,7 @@ class TugasFactory extends Factory
             'name' => $this->faker->sentence(),
             'deskripsi' => $this->faker->text(),
             'status' => $this->faker->numberBetween(0, 1),
-            'due_date' => $this->faker->dateTime('now'),
+            'due_date' => $this->faker->dateTimeBetween('-3 years', '+2 years'),
             'priority' => $arrPrior[array_rand($arrPrior)],
             'report' => UploadedFile::fake()->create('report.pdf', 200, 'pdf')
         ];

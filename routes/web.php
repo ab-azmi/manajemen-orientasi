@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PenugasanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::middleware('auth')->group(function(){
+    Route::resource('/penugasan', PenugasanController::class);
+});
 
 require __DIR__.'/auth.php';

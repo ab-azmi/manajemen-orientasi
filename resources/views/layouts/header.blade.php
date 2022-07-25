@@ -81,13 +81,13 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('penugasan')">
+                <x-responsive-nav-link :href="route('penugasan.index')" :active="request()->routeIs('penugasan.*')">
                     {{ __('Penugasan') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('kegiatan')">
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('kegiatan.*')">
                     {{ __('Kegiatan') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('peserta')">
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('peserta.*')">
                     {{ __('Peserta') }}
                 </x-responsive-nav-link>
             </div>

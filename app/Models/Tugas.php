@@ -14,11 +14,7 @@ class Tugas extends Model
 
     protected $guarded = ['id'];
 
-    /**
-     * The roles that belong to the Tugas
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
+    
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'tugas_users', 'tugas_id', 'user_id')->withPivot('status');

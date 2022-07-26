@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PenugasanController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,12 @@ Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('penugasan', PenugasanController::class);
+Route::middleware('auth')->group(function(){
+    Route::resources([
+        'penugasan' => PenugasanController::class,
+        'submission' => SubmissionController::class,
+    ]);
+});
+
 
 require __DIR__.'/auth.php';

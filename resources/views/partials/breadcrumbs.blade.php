@@ -1,16 +1,3 @@
-{{-- @unless($breadcrumbs->isEmpty())
-<ol class="breadcrumb">
-    @foreach($breadcrumbs as $breadcrumb)
-
-    @if(!is_null($breadcrumb->url) && !$loop->last)
-    <li class="breadcrumb-item"><a href="@{{ $breadcrumb->url }}">{{ $breadcrumb->title }}</a></li>
-    @else
-    <li class="breadcrumb-item active">{{ $breadcrumb->title }}</li>
-    @endif
-
-    @endforeach
-</ol>
-@endunless  --}}
 
 @unless($breadcrumbs->isEmpty())
 <div class="flex justify-between px-2">
@@ -30,7 +17,7 @@
             </svg>
         </span>
 
-        <a href="@{{ $breadcrumb->url }}" class="text-gray-600 dark:text-gray-200 hover:underline">
+        <a href="{{ $breadcrumb->url }}" class="text-gray-600 dark:text-gray-200 hover:underline">
             {{ Str::limit($breadcrumb->title, 40) }}
         </a>
         @endforeach 

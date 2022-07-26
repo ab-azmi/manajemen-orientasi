@@ -96,30 +96,32 @@
 
             <div class="shadow-lg rounded-2xl p-6 bg-white dark:bg-gray-700 w-full">
                 <h2 class="text-xl font-semibold">Submission</h2>
-                <form action="" method="post" class="py-6 flex flex-col gap-5" autocomplete="off">
+                <form action="{{ route('submission.store') }}" method="post" class="py-6 flex flex-col gap-5" autocomplete="off">
+                    @csrf
+                    @method('POST')
                     <div class="relative w-full md:w-[60%]">
-                        <label for="required-email" class="text-gray-700 mb-2">
+                        <label for="judul" class="text-gray-700 mb-2">
                             Judul
                             <span class="text-red-500 required-dot">
                                 *
                             </span>
                         </label>
-                        <input type="text" id="required-email"
+                        <input type="text" id="judul"
                             class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                            name="email" placeholder="Your email" />
+                            name="judul" placeholder="Judul Tugas" />
                     </div>
                     <div class="relative w-full md:w-[60%]">
                         <label for="required-email" class="text-gray-700 mb-2">
                             Catatan
                         </label>
-                        <textarea class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="comment" placeholder="Enter your comment" name="comment" rows="5" cols="40"></textarea>
+                        <textarea name="catatan" class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="comment" placeholder="Enter your comment" rows="5" cols="40"></textarea>
                     </div>
                     <div class="relative w-full md:w-[60%]">
                         <label for="file_input" class="text-gray-700 mb-2">
                             File
                         </label>
-                        <input type="file" name="" class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="file_input">
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                        <input type="file" name="file" class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="file_input">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, DOCX, TXT, MP4, MKV, PNG, or JPG (Max 300MB).</p>
                     </div>
                     <div class="flex w-full sm:justify-end mt-5">
                         <button type="submit"

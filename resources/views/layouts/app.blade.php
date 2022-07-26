@@ -13,6 +13,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
 </head>
 
 <body class="font-sans antialiased">
@@ -20,7 +21,8 @@
         <!-- Page Content -->
         <main class="bg-gray-100 dark:bg-gray-800 rounded-2xl h-screen overflow-hidden relative">
             <div class="flex items-start justify-between">
-                <div class="h-screen hidden sm:block lg:block my-4 sm:m-0 ml-4 shadow-lg relative w-80 sm:w-auto md:w-70">
+                <div
+                    class="h-screen hidden sm:block lg:block my-4 sm:m-0 ml-4 shadow-lg relative w-80 sm:w-auto md:w-70">
                     <div class="bg-white h-full rounded-2xl dark:bg-gray-700">
                         <div class="flex items-center justify-center pt-6">
                             <svg width="35" height="30" viewBox="0 0 256 366" version="1.1"
@@ -54,12 +56,23 @@
                     </div>
                 </div>
                 <div class="flex flex-col w-full pl-0 md:p-4 md:space-y-4">
-                   @include('layouts.header')
+                    @include('layouts.header')
+                    <x-flash-messages />
                     {{ $slot }}
                 </div>
             </div>
         </main>
     </div>
 </body>
-
+<script>
+    setTimeout(() => {
+    const box = document.getElementById('flashMessage');
+    
+    // 👇️ removes element from DOM
+    box.style.display = 'none';
+    
+    // 👇️ hides element (still takes up space on page)
+    // box.style.visibility = 'hidden';
+    }, 8000); // 👈️ time in milliseconds
+</script>
 </html>

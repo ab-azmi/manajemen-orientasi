@@ -20,6 +20,7 @@ class SubmissionFactory extends Factory
     public function definition()
     {
         return [
+            'judul' => fake()->sentence(),
             'file' => UploadedFile::fake()->create('submission.pdf', 300, 'pdf'),
             'catatan' => $this->faker->paragraph(),
             'date_submitted' => $this->faker->dateTime('now'),

@@ -22,9 +22,11 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function(){
     Route::resources([
-        'penugasan' => PenugasanController::class,
-        'submission' => SubmissionController::class,
+        'penugasan'=> PenugasanController::class,
+        'submission'=> SubmissionController::class
     ]);
+    
+    Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
 });
 
 

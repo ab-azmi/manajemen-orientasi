@@ -9,8 +9,7 @@ Breadcrumbs::for('penugasan.index', function (BreadcrumbTrail $trail): void {
     $trail->push('Penugasan', route('penugasan.index'));
 });
 
-Breadcrumbs::for('penugasan.show', function (BreadcrumbTrail $trail, String $id): void {
+Breadcrumbs::for('penugasan.show', function (BreadcrumbTrail $trail, Tugas $penugasan): void {
     $trail->parent('penugasan.index');
-
-    $trail->push(Tugas::find($id)->name, route('penugasan.show', $id));
+    $trail->push($penugasan->name, route('penugasan.show', $penugasan));
 });

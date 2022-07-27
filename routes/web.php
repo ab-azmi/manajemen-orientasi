@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\SubmissionController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function(){
     Route::resources([
         'penugasan'=> PenugasanController::class,
-        'submission'=> SubmissionController::class
+        'submission'=> SubmissionController::class,
+        'groups'=> GroupController::class
     ]);
     
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');

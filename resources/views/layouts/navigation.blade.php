@@ -39,7 +39,7 @@
                 Kegiatan
             </span>
         </x-responsive-side-nav-link>
-        <x-responsive-side-nav-link :href="route('dashboard')" :active="request()->routeIs('peserta.*')">
+        <x-responsive-side-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')">
             <span class="text-left">
                 <svg width="20" height="20" fill="currentColor" class="m-auto" viewBox="0 0 2048 1792"
                     xmlns="http://www.w3.org/2000/svg">

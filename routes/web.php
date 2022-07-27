@@ -21,9 +21,11 @@ Route::get('/', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function(){
-    Route::resource('penugasan', PenugasanController::class);
+    Route::resources([
+        'penugasan'=> PenugasanController::class,
+        'submission'=> SubmissionController::class
+    ]);
     
-    Route::resource('submission', SubmissionController::class);
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
 });
 

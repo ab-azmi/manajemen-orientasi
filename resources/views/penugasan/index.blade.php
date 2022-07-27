@@ -5,7 +5,7 @@
                 @foreach ($all_tugas as $tugas)
                 
                 <div class="mb-4 w-full sm:w-[45%] xl:w-[30%]">
-                    <a href="{{ route('penugasan.show', $tugas->id) }}">
+                    <a href="{{ route('penugasan.show', $tugas) }}">
                         <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
                             <div class="flex items-center justify-between mb-6">
                                 <div class="flex items-center">
@@ -73,7 +73,7 @@
                                                         
                             <span
                                 class="px-2 py-1 flex w-fit mt-4 items-center text-xs rounded-md font-semibold text-yellow-800 bg-yellow-100">
-                                DUE DATE : {{ \Carbon\Carbon::parse($tugas->due_date)->format('D, d-M-Y') }}
+                                DUE DATE : {{ \Carbon\Carbon::parse($tugas->due_date)->format('D, d-M-Y [H:i]') }}
                             </span>
                         </div>
                     </a>

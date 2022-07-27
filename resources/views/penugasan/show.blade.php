@@ -48,7 +48,7 @@
                     <div class="flex gap-5 w-fit sm:items-center flex-col sm:flex-row">
                         <span
                             class="px-2 py-1 flex w-fit items-center text-sm rounded-md font-semibold text-yellow-800 bg-yellow-100">
-                            DUE DATE : {{ \Carbon\Carbon::parse($tugas->due_date)->format('D, d-M-Y') }}
+                            DUE DATE : {{ \Carbon\Carbon::parse($tugas->due_date)->format('D, d-M-Y [H:i]') }}
                         </span>
                         <div class="w-fit text-sm">
                             @switch($tugas->priority)
@@ -87,7 +87,7 @@
                         </div>
                         <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
                             <div class="h-full text-center text-xs text-white bg-purple-500 rounded-full"
-                                style="width: {{ round($tugas->usersCompleted->count()/$tugas->users->count()*100) }}%">
+                                style="width: {{ round($tugas->usersCompleted->count() ? $tugas->usersCompleted->count()/$tugas->users->count()*100 : 0) }}%">
                             </div>
                         </div>
                     </div>

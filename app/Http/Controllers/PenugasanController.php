@@ -12,7 +12,7 @@ class PenugasanController extends Controller
     
     public function index()
     {
-        $all_tugas = Tugas::all();
+        $all_tugas = Tugas::latest()->paginate();
         return view('penugasan.index', [
             'all_tugas' => $all_tugas
         ]);
@@ -31,10 +31,10 @@ class PenugasanController extends Controller
     }
 
     
-    public function show($id)
+    public function show(Tugas $penugasan)
     {
         return view('penugasan.show',[
-            'tugas' => Tugas::find($id)
+            'tugas' => $penugasan
         ]);
     }
 

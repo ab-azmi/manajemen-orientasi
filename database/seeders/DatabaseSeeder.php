@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tugas::factory(5)->create();
         \App\Models\TugasUser::factory(100)->create();
         \App\Models\Submission::factory(100)->create();
+        \App\Models\Group::factory(5)->create();
+        \App\Models\GroupUser::factory(50)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

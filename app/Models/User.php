@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Submission::class);
     }
+
+    /**
+     * The roles that belong to the Group
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_users', 'user_id', 'group_id')->withPivot('penanggung_jawab');
+    }
 }

@@ -95,8 +95,16 @@
             </div>
 
             <div class="shadow-lg rounded-2xl p-6 bg-white dark:bg-gray-700 w-full">
-                <h2 class="text-xl font-semibold">Submission</h2>
-                <form action="{{ route('submission.store') }}" method="post" class="py-6 flex flex-col gap-5" autocomplete="off">
+                <div class="flex justify-between">
+                    <h2 class="text-xl font-semibold">Submission</h2>
+                    @if (Auth::user()->submissions->where('tugas_id', $tugas->id)->first())
+                        <span class="ml-5 md:ml-0 px-2 py-1 w-fit h-fit text-center font-semibold text-sm rounded-md text-blue-700 bg-blue-50 ">
+                            SUBMITTED : {{ \Carbon\Carbon::parse(Auth::user()->submissions->where('tugas_id',
+                            $tugas->id)->first()->date_submitted->diffForHumans())->diffForHumans() }}
+                        </span>
+                    @endif
+                </div>
+                <form action="{{ route('submission.store', $tugas->id) }}" method="post" class="py-6 flex flex-col gap-5" autocomplete="off" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div class="relative w-full md:w-[60%]">
@@ -106,9 +114,12 @@
                                 *
                             </span>
                         </label>
-                        <input type="text" id="judul"
+                        <input required type="text" id="judul"
                             class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                             name="judul" placeholder="Judul Tugas" />
+                        @error('judul')
+                            <p class="mt-1 text-sm text-red-600 dark:text-purple-500">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="relative w-full md:w-[60%]">
                         <label for="required-email" class="text-gray-700 mb-2">

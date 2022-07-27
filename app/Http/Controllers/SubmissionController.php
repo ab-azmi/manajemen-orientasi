@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Tugas;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\SubmissionRequest;
 use Illuminate\Support\Facades\Validator;
 
 class SubmissionController extends Controller
@@ -22,18 +26,25 @@ class SubmissionController extends Controller
     }
 
     
-    public function store(Request $request)
+    public function storeSubmission(SubmissionRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'judul' => 'required|min:3',
-            'file' => 'file|mimes:jpg,png,docx,pdf,mp4,mkv|max:300000',
-            'catatan' => 'nullable',
-            'date_submitted' => 'date'
-        ]);
-        $user = Auth::id();
-        if ($validator->fails()) {
-            return back()->with('error', 'Yang bener kalo ngumpulin tugas! Niat ngga?!?');
+        $validated = $request->validated();
+        $validated['date_submitted'] = Carbon::now()->toDateTimeString();
+        $validated['user_id'] = Auth::id();
+        $validated['tugas_id'] = $id;
+        
+        if($request->hasFile('file')){
+            $hashed = $request->file('file')->hashName();
+            $file_date = Carbon::parse($validated['date_submitted'])->format('d-m-y');
+            $filename = $file_date.'-'.Auth::id().'-'.$hashed;
+            Storage::disk('local')->put('submissions', $request->file('file'));
+            $path = Storage::url($filename);
+            $validated['file'] = $path;
         }
+
+        Submission::create($validated);
+
+        return back()->with('success', 'Tugas berhasil dikumpulkan!!');
     }
 
     

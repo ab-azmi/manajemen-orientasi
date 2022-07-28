@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventDayController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PenugasanController;
@@ -25,7 +26,8 @@ Route::middleware('auth')->group(function(){
     Route::resources([
         'penugasan'=> PenugasanController::class,
         'submission'=> SubmissionController::class,
-        'groups'=> GroupController::class
+        'groups'=> GroupController::class,
+        'event_days'=> EventDayController::class
     ]);
     
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');

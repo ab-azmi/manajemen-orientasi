@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Tugas;
+use App\Models\EventDay;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -22,4 +23,13 @@ Breadcrumbs::for('groups.index', function (BreadcrumbTrail $trail): void {
 Breadcrumbs::for('groups.show', function (BreadcrumbTrail $trail, Group $group): void {
     $trail->parent('groups.index');
     $trail->push($group->name, route('groups.show', $group));
+});
+
+Breadcrumbs::for('event_days.index', function (BreadcrumbTrail $trail): void {
+    $trail->push('Event Days', route('event_days.index'));
+});
+
+Breadcrumbs::for('event_days.show', function (BreadcrumbTrail $trail, EventDay $event_day): void {
+    $trail->parent('event_days.index');
+    $trail->push($event_day->name, route('event_days.show', $event_day));
 });

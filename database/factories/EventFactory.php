@@ -17,8 +17,10 @@ class EventFactory extends Factory
      */
     public function definition()
     {
+        $colors = ['green', 'purple', 'yellow'];
         return [
             'name' => $this->faker->sentence(3),
+            'color' => $colors[array_rand($colors)],
             'catatan' => $this->faker->text(),
             'time' => $this->faker->time(),
             'event_day_id' => EventDay::all()->random()->id

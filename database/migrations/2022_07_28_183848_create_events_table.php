@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('color')->nullable();
             $table->text('catatan')->nullable();
             $table->time('time');
             $table->foreignId('event_day_id');

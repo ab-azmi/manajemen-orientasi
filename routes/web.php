@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\EventDayController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupController;
@@ -27,7 +28,8 @@ Route::middleware('auth')->group(function(){
         'penugasan'=> PenugasanController::class,
         'submission'=> SubmissionController::class,
         'groups'=> GroupController::class,
-        'event_days'=> EventDayController::class
+        'event_days'=> EventDayController::class,
+        'absens'=> AbsensiController::class,
     ]);
     
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');

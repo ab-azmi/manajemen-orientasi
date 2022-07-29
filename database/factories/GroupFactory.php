@@ -18,7 +18,7 @@ class GroupFactory extends Factory
     {
         $arr = ['yellow', 'blue', 'purple'];
         return [
-            'name' => $this->faker->lastName(),
+            'name' => $this->faker->unique()->lastName(),
             'color' => $arr[array_rand($arr)]
         ];
     }

@@ -62,4 +62,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Group::class, 'group_users', 'user_id', 'group_id')->withPivot('penanggung_jawab');
     }
+
+    /**
+     * Get all of the absens for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function absens(): HasMany
+    {
+        return $this->hasMany(Absensi::class);
+    }
 }

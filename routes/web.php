@@ -1,9 +1,13 @@
 <?php
 
-use App\Http\Controllers\AbsensiController;
-use App\Http\Controllers\EventDayController;
+use App\Models\Absensi;
+use App\Models\SesiAbsensi;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventDayController;
 use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\SubmissionController;
 
@@ -19,9 +23,7 @@ use App\Http\Controllers\SubmissionController;
 */
 
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function(){
     Route::resources([
@@ -33,6 +35,7 @@ Route::middleware('auth')->group(function(){
     ]);
     
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
+    Route::patch('/absens/toggle_status/{sesi}', [AbsensiController::class, 'toggleStatus'])->name('absens.toggle');
 });
 
 

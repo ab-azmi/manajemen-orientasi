@@ -2,24 +2,41 @@
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
         <div class="flex flex-col flex-wrap gap-5">
 
-            <div class="w-[45%]">
-                <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 gap-8 flex flex-wrap flex-col justify-start">
-                    <div class="flex w-full">
+            <div class="w-full sm:w-1/2 lg:w-[45%] ">
+                <div
+                    class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 gap-8 flex flex-wrap flex-col justify-start">
+                    <div class="flex w-full justify-between">
                         <div class="">
                             <h2 class="font-semibold text-xl">Absen Hari Ini</h2>
                             <p class="text-sm text-slate-400">
                                 {{ \Carbon\Carbon::now()->format('D, d-M-Y') }}
                             </p>
                         </div>
+                        <div class="flex flex-col gap-1">
+                            @if ($sesi_aktif)
+                            <span
+                                class="px-2 py-1 h-fit flex items-center font-semibold text-xs rounded-md  text-red-400 border border-red-400  bg-white">
+                                {{ $sesi_aktif->count() }} SESI AKTIF
+                            </span>
+                            @endif
+                            @if ($absen)
+                                <span
+                                    class="px-2 py-1 h-fit flex items-center font-semibold text-xs rounded-md  text-purple-500 border border-purple-500  bg-white">
+                                    SUBMITTED
+                                </span>
+                            @endif
+                        </div>
+
                     </div>
                     <div class="w-full">
-                        <form action="{{ route('absens.store') }}" method="" class="flex flex-col md:flex-row w-full md:space-x-3 space-y-3 md:space-y-0">
+                        <form action="{{ route('absens.store') }}" method="post"
+                            class="flex flex-col md:flex-row w-full md:space-x-3 space-y-3 md:space-y-0">
                             @csrf
                             @method('POST')
                             <div class=" relative ">
-                                <input type="text" id="&quot;form-subscribe-Subscribe"
+                                <input type="email" id="" name="confirm"
                                     class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                    placeholder="Nama Lengkap" />
+                                    placeholder="Email anda" />
                             </div>
                             <button
                                 class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\EventDay::factory(4)->create();
         \App\Models\Event::factory(20)->create();
         \App\Models\SesiAbsensi::factory(3)->create();
-        \App\Models\Absensi::factory(20)->create();
+        // \App\Models\Absensi::factory(20)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

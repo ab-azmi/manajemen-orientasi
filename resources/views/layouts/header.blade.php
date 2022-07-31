@@ -84,11 +84,14 @@
                 <x-responsive-nav-link :href="route('penugasan.index')" :active="request()->routeIs('penugasan.*')">
                     {{ __('Penugasan') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('kegiatan.*')">
+                <x-responsive-nav-link :href="route('event_days.index')" :active="request()->routeIs('event_days.*')">
                     {{ __('Kegiatan') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('peserta.*')">
+                <x-responsive-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')">
                     {{ __('Peserta') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('absens.index')" :active="request()->routeIs('absens.*')">
+                    {{ __('Absensi') }}
                 </x-responsive-nav-link>
             </div>
             <!-- Responsive Settings Options -->
@@ -102,7 +105,7 @@
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
+                        @method('POST')
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                             this.closest('form').submit();">

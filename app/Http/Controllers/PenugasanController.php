@@ -21,7 +21,7 @@ class PenugasanController extends Controller
     
     public function create()
     {
-        //
+        return view('penugasan.create');
     }
 
     

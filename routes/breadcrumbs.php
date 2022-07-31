@@ -16,6 +16,11 @@ Breadcrumbs::for('penugasan.show', function (BreadcrumbTrail $trail, Tugas $penu
     $trail->push($penugasan->name, route('penugasan.show', $penugasan));
 });
 
+Breadcrumbs::for('penugasan.create', function (BreadcrumbTrail $trail): void {
+    $trail->parent('penugasan.index');
+    $trail->push('Create', route('penugasan.create'));
+});
+
 Breadcrumbs::for('groups.index', function (BreadcrumbTrail $trail): void {
     $trail->push('Groups', route('groups.index'));
 });

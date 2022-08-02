@@ -7,8 +7,10 @@
                 <div class="text-slate-800 text-lg font-semibold mb-5">
                     Tambah Penugasan
                 </div>
-                <form class="flex flex-col gap-5" action="" method="post" enctype="multipart/form-data"
+                <form class="flex flex-col gap-5" action="{{ route('penugasan.store') }}" method="post" enctype="multipart/form-data"
                     autocomplete="off">
+                    @csrf
+                    @method('POST')
                     <div class=" relative">
                         <label for="name" class="text-gray-700">
                             Name
@@ -16,21 +18,47 @@
                                 *
                             </span>
                         </label>
-                        <input type="text" id="name" name="name"
-                            class=" rounded-lg border flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        <input required type="text" id="name" name="name"
+                            class=" rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                             placeholder="Tugas video perkenalan" />
                     </div>
                     <div class=" relative ">
-                        <label class="text-gray-700" for="name">
+                        <label class="text-gray-700" for="deskripsi">
                             Deskripsi
-                            <textarea
+                            {{-- <textarea
                                 class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                                 id="comment" placeholder="Buatlah vide perkenalan dan ceritakan tentang dirimu"
-                                name="comment" rows="5" cols="40"></textarea>
+                                name="deskripsi" rows="5" cols="40"></textarea> --}}
+                                <x-trix-field id='deskripsi' name="deskripsi"/>
                         </label>
                     </div>
-                    <div class="relative">
-                        
+                    <div class="relative w-full sm:w-1/2">
+                        <label for="date" class="text-gray-700">
+                            Due Date
+                            <span class="text-red-500 required-dot">
+                                *
+                            </span>
+                        </label>
+                        <input name="due_date" required datepicker type="date"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-purple-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Select date">
+                    </div>
+                    <div class="relative w-full sm:w-1/2">
+                        <label for="currency" class="text-gray-700">
+                            Priority
+                        </label>
+                        <select id="Currency" name="priority"
+                            class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                            <option value="HIGH">
+                                High
+                            </option>
+                            <option value="MEDIUM">
+                                Medium
+                            </option>
+                            <option value="LOW">
+                                Low
+                            </option>
+                        </select>
                     </div>
                     <div class="w-full sm:w-1/2">
                         <button type="submit"

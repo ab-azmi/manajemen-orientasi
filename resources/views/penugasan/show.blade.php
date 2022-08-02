@@ -33,7 +33,7 @@
 
                 <div class="px-12">
                     <p class="text-md leading-6 text-gray-800">
-                        {{ $tugas->deskripsi }}
+                        {!! clean($tugas->deskripsi) !!}
                     </p>
 
                     <div class="flex mt-4 gap-4 flex-wrap">
@@ -100,7 +100,7 @@
                     @if (Auth::user()->submissions->where('tugas_id', $tugas->id)->first())
                         <span class="ml-5 md:ml-0 px-2 py-1 w-fit h-fit text-center font-semibold text-sm rounded-md text-blue-700 bg-blue-50 ">
                             SUBMITTED : {{ \Carbon\Carbon::parse(Auth::user()->submissions->where('tugas_id',
-                            $tugas->id)->first()->date_submitted->diffForHumans())->diffForHumans() }}
+                            $tugas->id)->first()->date_submitted)->diffForHumans() }}
                         </span>
                     @endif
                 </div>

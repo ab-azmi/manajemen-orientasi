@@ -10,12 +10,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Tonysm\RichTextLaravel\Models\Traits\HasRichText;
 
 class Tugas extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, HasRichText;
 
     protected $guarded = ['id'];
+    protected $richTextFields = ['deskripsi'];
 
     public function getSlugOptions(): SlugOptions
     {

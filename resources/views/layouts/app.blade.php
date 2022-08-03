@@ -71,14 +71,16 @@
     </div>
 </body>
 <script>
-    setTimeout(() => {
     const box = document.getElementById('flashMessage');
-    
-    // 👇️ removes element from DOM
-    box.style.display = 'none';
-    
-    // 👇️ hides element (still takes up space on page)
-    // box.style.visibility = 'hidden';
-    }, 8000); // 👈️ time in milliseconds
+    if(document.body.contains(box)){
+        setTimeout(() => {
+        
+        // 👇️ removes element from DOM
+        box.style.display = 'none';
+        
+        // 👇️ hides element (still takes up space on page)
+        // box.style.visibility = 'hidden';
+        }, 8000); // 👈️ time in milliseconds
+    }
 </script>
 </html>

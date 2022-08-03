@@ -16,7 +16,7 @@ class Tugas extends Model
 {
     use HasFactory, HasSlug, HasRichText;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
     protected $richTextFields = ['deskripsi'];
 
     public function getSlugOptions(): SlugOptions

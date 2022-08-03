@@ -16,14 +16,18 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(50)->create();
         \App\Models\Tugas::factory(5)->create();
-        \App\Models\TugasUser::factory(100)->create();
-        \App\Models\Submission::factory(100)->create();
+        // \App\Models\TugasUser::factory(100)->create();
+        // \App\Models\Submission::factory(100)->create();
         \App\Models\Group::factory(5)->create();
         \App\Models\GroupUser::factory(50)->create();
         \App\Models\EventDay::factory(4)->create();
         \App\Models\Event::factory(20)->create();
         \App\Models\SesiAbsensi::factory(3)->create();
-        // \App\Models\Absensi::factory(20)->create();
+
+        $tugases = \App\Models\Tugas::all();
+        foreach ($tugases as $key => $tugas) {
+            $tugas->users()->syncWithPivotValues(\App\Models\User::pluck('id'), ['status' => 0]);
+        }
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

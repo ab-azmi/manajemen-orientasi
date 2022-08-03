@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/attachments', function(){
         request()->validate([
-            'attachment' => ['required|file'],
+            'attachment' => ['required', 'file'],
         ]);
         $path = request()->file('attachment')->store('trix-attachments', 'public');
 

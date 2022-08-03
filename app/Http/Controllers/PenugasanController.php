@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 class PenugasanController extends Controller
 {
@@ -27,7 +28,23 @@ class PenugasanController extends Controller
     
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:4',
+            'deskripsi' => 'required',
+            'due_date' => 'required|date',
+            'priority' => 'nullable'
+        ]);
+
+        // dd($validator->validated());
+
+        $in = Tugas::create($validator->validated());
+        
+        if($in){
+            return redirect()->route('penugasan.index')->with('success', 'Tugas berhasil dibuat');
+        }
+        return redirect()->route('penugasan.create')->with('error', 'Tugas gagal dibuat');
+
     }
 
     

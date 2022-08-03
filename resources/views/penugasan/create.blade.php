@@ -25,11 +25,7 @@
                     <div class=" relative ">
                         <label class="text-gray-700" for="deskripsi">
                             Deskripsi
-                            {{-- <textarea
-                                class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                                id="comment" placeholder="Buatlah vide perkenalan dan ceritakan tentang dirimu"
-                                name="deskripsi" rows="5" cols="40"></textarea> --}}
-                                <x-trix-field id='deskripsi' name="deskripsi"/>
+                            <x-trix-field id='deskripsi' name="deskripsi"/>
                         </label>
                     </div>
                     <div class="relative w-full sm:w-1/2">
@@ -49,13 +45,13 @@
                         </label>
                         <select id="Currency" name="priority"
                             class="rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
-                            <option value="HIGH">
+                            <option value="high">
                                 High
                             </option>
-                            <option value="MEDIUM">
+                            <option value="medium">
                                 Medium
                             </option>
-                            <option value="LOW">
+                            <option value="low">
                                 Low
                             </option>
                         </select>

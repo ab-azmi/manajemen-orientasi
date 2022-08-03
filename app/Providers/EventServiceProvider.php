@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Models\Tugas;
 use App\Models\Submission;
+use App\Observers\UserObserver;
+use App\Observers\TugasObserver;
 use App\Observers\SubmissionObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -30,6 +34,8 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Submission::observe(SubmissionObserver::class);
+        Tugas::observe(TugasObserver::class);
+        User::observe(UserObserver::class);
     }
 
     /**

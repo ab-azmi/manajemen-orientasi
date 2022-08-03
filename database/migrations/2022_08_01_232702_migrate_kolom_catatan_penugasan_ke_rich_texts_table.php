@@ -19,7 +19,7 @@ return new class extends Migration
             DB::table('rich_texts')->insert([
                 'field' => 'deskripsi',
                 'body' => "<div> {$tugas->deskripsi} </div>",
-                'record_type' => (new Tugas())->getMorphClass(),
+                'record_type' => (new Tugas)->getMorphClass(),
                 'record_id' => $tugas->id,
                 'created_at' => $tugas->created_at,
                 'updated_at' => $tugas->updated_at

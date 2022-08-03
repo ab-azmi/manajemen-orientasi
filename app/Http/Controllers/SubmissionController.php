@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Tugas;
 use App\Models\Submission;
 use Illuminate\Http\Request;
@@ -37,12 +38,14 @@ class SubmissionController extends Controller
             $hashed = $request->file('file')->hashName();
             $file_date = Carbon::parse($validated['date_submitted'])->format('d-m-y');
             $filename = $file_date.'-'.Auth::id().'-'.$hashed;
+
             Storage::disk('local')->put('submissions', $request->file('file'));
             $path = Storage::url($filename);
             $validated['file'] = $path;
         }
 
         Submission::create($validated);
+        User::find(Auth::id())->tugas()->updateExistingPivot($id, ['status' => 1]);
 
         return back()->with('success', 'Tugas berhasil dikumpulkan!!');
     }

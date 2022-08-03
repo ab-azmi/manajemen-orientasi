@@ -78,7 +78,7 @@
                                     </span>
                                 </div>
                                 <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
-                                    <div class="h-full text-center text-xs text-white bg-purple-500 rounded-full" style="width: {{ round($tugas->usersCompleted->count()/$tugas->users->count()*100) }}%">
+                                    <div class="h-full text-center text-xs text-white bg-purple-500 rounded-full" style="width: {{ round(max($tugas->usersCompleted->count(), 1) / max($tugas->users->count(), 1) *100) }}%">
                                     </div>
                                 </div>
                             </div>

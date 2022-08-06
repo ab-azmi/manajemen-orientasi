@@ -34,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Submission::observe(SubmissionObserver::class);
-        Tugas::observe(TugasObserver::class);
+        // Tugas::observe(TugasObserver::class);
         User::observe(UserObserver::class);
     }
 

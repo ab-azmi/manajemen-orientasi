@@ -22,10 +22,20 @@
                                     Tugas Orientasi
                                 </span>
                             </div>
-                            <span
-                                class="ml-5 md:ml-0 px-2 py-1 w-fit h-fit text-center font-semibold text-sm rounded-md {{ $tugas->status == 0 ? 'text-gray-500 bg-gray-200' : 'text-green-700 bg-green-50' }} ">
-                                {{ $tugas->status == 0 ? 'PROGRESS' : 'COMPLETED' }}
-                            </span>
+                            <div class="w-fit flex items-center gap-3">
+                                <form action="{{ route('penugasan.destroy', $tugas) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="py-1 px-2  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-sm font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                        DELETE
+                                    </button>
+                                </form>
+                                <span
+                                    class="ml-5 md:ml-0 px-2 py-1 w-fit h-fit text-center font-semibold text-sm rounded-md {{ $tugas->status == 0 ? 'text-gray-500 bg-gray-200' : 'text-green-700 bg-green-50' }} ">
+                                    {{ $tugas->status == 0 ? 'PROGRESS' : 'COMPLETED' }}
+                                </span>
+                            </div>
                         </div>
 
                     </div>

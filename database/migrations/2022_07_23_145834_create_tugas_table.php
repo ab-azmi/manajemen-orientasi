@@ -22,6 +22,7 @@ return new class extends Migration
             $table->dateTime('due_date');
             $table->string('priority')->nullable();
             $table->string('report')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

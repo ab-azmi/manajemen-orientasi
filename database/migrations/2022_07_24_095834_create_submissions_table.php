@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->string ('judul');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->text('catatan')->nullable();
             $table->dateTime('date_submitted');
             $table->foreignId('user_id');

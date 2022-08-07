@@ -45,7 +45,7 @@ class Tugas extends Model
 
     public function submissions(): HasMany
     {
-        return $this->hasMany(Submission::class, 'submission_id');
+        return $this->hasMany(Submission::class);
     }
 
 }

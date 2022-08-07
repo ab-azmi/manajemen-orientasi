@@ -92,4 +92,8 @@ class PenugasanController extends Controller
         }
         return redirect()->route('penugasan.index')->with('error', 'Tugas gagal dihapus');
     }
+
+    public function responses(Tugas $penugasan){
+        return view('penugasan.respon', compact('penugasan'));
+    }
 }

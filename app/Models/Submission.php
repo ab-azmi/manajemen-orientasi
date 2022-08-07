@@ -22,6 +22,6 @@ class Submission extends Model
 
     public function tugas(): BelongsTo
     {
-        return $this->belongsTo(Tugas::class, 'tugas_id');
+        return $this->belongsTo(Tugas::class);
     }
 }

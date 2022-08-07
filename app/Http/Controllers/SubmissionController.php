@@ -39,8 +39,7 @@ class SubmissionController extends Controller
             $file_date = Carbon::parse($validated['date_submitted'])->format('d-m-y');
             $filename = $file_date.'-'.Auth::id().'-'.$hashed;
 
-            Storage::disk('local')->put('submissions', $request->file('file'));
-            $path = Storage::url($filename);
+            $path = Storage::putFileAs('submissions', $request->file('file'), $filename);
             $validated['file'] = $path;
         }
 
@@ -85,8 +84,15 @@ class SubmissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Submission $submission)
     {
-        //
+        $submission->delete();
+        return back()->with('success', 'Submission berhasil dihapus!!');
+    }
+
+    public function download(Submission $submission)
+    {
+        // dd($submission->file);
+        return Storage::download($submission->file);
     }
 }

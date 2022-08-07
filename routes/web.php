@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function(){
     
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
     Route::patch('/absens/toggle_status/{sesi}', [AbsensiController::class, 'toggleStatus'])->name('absens.toggle');
+    Route::get('/penugasan/response/{penugasan}', [PenugasanController::class, 'responses'])->name('penugasan.responses');
 
     Route::post('/attachments', function(){
         request()->validate([

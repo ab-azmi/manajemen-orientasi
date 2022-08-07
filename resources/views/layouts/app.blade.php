@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
         integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -70,6 +71,7 @@
         </main>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 <script>
     const box = document.getElementById('flashMessage');
     if(document.body.contains(box)){
@@ -82,5 +84,9 @@
         // box.style.visibility = 'hidden';
         }, 8000); // 👈️ time in milliseconds
     }
+
+    new TomSelect('#select-role', {
+        maxItems: 100,
+      });
 </script>
 </html>

@@ -19,7 +19,7 @@ class GroupUserFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::all()->random()->id,
+            'user_id' => $this->faker->randomElement(User::pluck('id')),
             'group_id' => Group::all()->random()->id,
         ];
     }

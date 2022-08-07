@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
+use App\Http\Requests\TugasRequest;
+use App\Models\Group;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,29 +25,31 @@ class PenugasanController extends Controller
     
     public function create()
     {
-        return view('penugasan.create');
+        $groups = Group::all();
+        return view('penugasan.create', compact('groups'));
     }
 
     
-    public function store(Request $request)
+    public function store(TugasRequest $request)
     {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:4',
-            'deskripsi' => 'required',
-            'due_date' => 'required|date',
-            'priority' => 'nullable'
-        ]);
+        $validated = $request->validated();
+        $validated['due_date'] = $request->due_date . ' ' . $request->due_time;
 
-        // dd($validator->validated());
-
-        $in = Tugas::create($validator->validated());
-        
-        if($in){
-            return redirect()->route('penugasan.index')->with('success', 'Tugas berhasil dibuat');
+        try {
+            if ($request->groups[0] == 'all') {
+                $in = Tugas::create($validated)->users()->sync(User::pluck('id'));
+            } else {
+                $groups = Group::whereIn('id', $request->groups)->get();
+                $p = Tugas::create($validated);
+                foreach ($groups as $key => $group) {
+                    $p->users()->syncWithoutDetaching($group->users->pluck('id'));
+                }
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('penugasan.create')->with('error', $e->getMessage());
         }
-        return redirect()->route('penugasan.create')->with('error', 'Tugas gagal dibuat');
 
+        return redirect()->route('penugasan.index')->with('success', 'Tugas berhasil dibuat');
     }
 
     
@@ -79,8 +84,16 @@ class PenugasanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tugas $penugasan)
     {
-        //
+        $del = $penugasan->delete();
+        if ($del) {
+            return redirect()->route('penugasan.index')->with('success', 'Tugas berhasil dihapus');
+        }
+        return redirect()->route('penugasan.index')->with('error', 'Tugas gagal dihapus');
+    }
+
+    public function responses(Tugas $penugasan){
+        return view('penugasan.respon', compact('penugasan'));
     }
 }

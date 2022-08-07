@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\Group;
 use App\Models\Tugas;
 use App\Models\EventDay;
+use Illuminate\Support\Str;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -19,6 +20,11 @@ Breadcrumbs::for('penugasan.show', function (BreadcrumbTrail $trail, Tugas $penu
 Breadcrumbs::for('penugasan.create', function (BreadcrumbTrail $trail): void {
     $trail->parent('penugasan.index');
     $trail->push('Create', route('penugasan.create'));
+});
+
+Breadcrumbs::for('penugasan.responses', function (BreadcrumbTrail $trail, Tugas $penugasan): void {
+    $trail->parent('penugasan.index');
+    $trail->push(Str::limit($penugasan->name, 15, '...'), route('penugasan.responses', $penugasan));
 });
 
 Breadcrumbs::for('groups.index', function (BreadcrumbTrail $trail): void {

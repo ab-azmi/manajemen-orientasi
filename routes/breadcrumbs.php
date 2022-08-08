@@ -14,7 +14,7 @@ Breadcrumbs::for('penugasan.index', function (BreadcrumbTrail $trail): void {
 
 Breadcrumbs::for('penugasan.show', function (BreadcrumbTrail $trail, Tugas $penugasan): void {
     $trail->parent('penugasan.index');
-    $trail->push($penugasan->name, route('penugasan.show', $penugasan));
+    $trail->push(Str::limit($penugasan->name, 20), route('penugasan.show', $penugasan));
 });
 
 Breadcrumbs::for('penugasan.create', function (BreadcrumbTrail $trail): void {
@@ -23,8 +23,8 @@ Breadcrumbs::for('penugasan.create', function (BreadcrumbTrail $trail): void {
 });
 
 Breadcrumbs::for('penugasan.responses', function (BreadcrumbTrail $trail, Tugas $penugasan): void {
-    $trail->parent('penugasan.index');
-    $trail->push(Str::limit($penugasan->name, 15, '...'), route('penugasan.responses', $penugasan));
+    $trail->parent('penugasan.show', $penugasan);
+    $trail->push('Respones', route('penugasan.responses', $penugasan));
 });
 
 Breadcrumbs::for('groups.index', function (BreadcrumbTrail $trail): void {

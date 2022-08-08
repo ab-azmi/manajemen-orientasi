@@ -2,7 +2,7 @@
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
         <div class="w-full mt-3">
             <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
-                <h2 class="text-2xl leading-tight">
+                <h2 class="text-base leading-tight">
                     {{ Breadcrumbs::render() }}
                 </h2>
                 <div class="text-end">

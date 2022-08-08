@@ -35,8 +35,10 @@ Route::middleware('auth')->group(function(){
         'absens'=> AbsensiController::class,
     ]);
     
-    Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
     Route::get('submission/download/{submission}', [SubmissionController::class, 'download'])->name('submission.download');
+    Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
+    Route::patch('/submission/update/{tugas}/{submission}', [SubmissionController::class, 'update'])->name('submission.update');
+    
     Route::patch('/absens/toggle_status/{sesi}', [AbsensiController::class, 'toggleStatus'])->name('absens.toggle');
     Route::get('/penugasan/response/{penugasan}', [PenugasanController::class, 'responses'])->name('penugasan.responses');
 

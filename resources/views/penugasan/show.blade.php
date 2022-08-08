@@ -118,49 +118,111 @@
                         </span>
                     @endif
                 </div>
-                <form action="{{ route('submission.store', $tugas->id) }}" method="post" class="py-6 flex flex-col gap-5" autocomplete="off" enctype="multipart/form-data">
-                    @csrf
-                    @method('POST')
-                    <div class="relative w-full md:w-[60%]">
-                        <label for="judul" class="text-gray-700 mb-2">
-                            Judul
-                            <span class="text-red-500 required-dot">
-                                *
-                            </span>
-                        </label>
-                        <input required type="text" id="judul"
-                            class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                            name="judul" placeholder="Judul Tugas" />
-                        @error('judul')
+                @if (Auth::user()->submissions->where('tugas_id', $tugas->id)->first())
+                @php
+                    $submission = Auth::user()->submissions->where('tugas_id', $tugas->id)->first();
+                @endphp
+                    <form action="{{ route('submission.update', ['tugas' => $tugas->id, 'submission' => $submission]) }}" method="post" class="py-6 flex flex-col gap-5"
+                        autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        @method('PATCH')
+                        <div class="relative w-full md:w-[60%]">
+                            <label for="judul" class="text-gray-700 mb-2">
+                                Judul
+                                <span class="text-red-500 required-dot">
+                                    *
+                                </span>
+                            </label>
+                            <input required type="text" id="judul" value="{{ $submission->judul }}"
+                                class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                name="judul" placeholder="Judul Tugas" />
+                            @error('judul')
                             <p class="mt-1 text-sm text-red-600 dark:text-purple-500">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="relative w-full md:w-[60%]">
-                        <label for="required-email" class="text-gray-700 mb-2">
-                            Catatan
-                        </label>
-                        <textarea name="catatan" class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="comment" placeholder="Enter your comment" rows="5" cols="40"></textarea>
-                    </div>
-                    <div class="relative w-full md:w-[60%]">
-                        <label for="file_input" class="text-gray-700 mb-2">
-                            File
-                        </label>
-                        <input type="file" name="file" class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="file_input">
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, DOCX, TXT, MP4, MKV, PNG, or JPG (Max 300MB).</p>
-                    </div>
-                    <div class="flex w-full sm:justify-end mt-5">
-                        <button type="submit"
-                            class="py-2 px-4 flex justify-center items-center w-1/2 sm:w-1/4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                            <svg width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 1792 1792"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z">
-                                </path>
-                            </svg>
-                            Upload
-                        </button>
-                    </div>
-                </form>
+                            @enderror
+                        </div>
+                        <div class="relative w-full md:w-[60%]">
+                            <label for="required-email" class="text-gray-700 mb-2">
+                                Catatan
+                            </label>
+                            <textarea name="catatan"
+                                class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                id="comment" placeholder="Enter your comment" rows="5" cols="40">{{ $submission->catatan }}</textarea>
+                        </div>
+                        <div class="relative w-full md:w-[60%]">
+                            <label for="file_input" class="text-gray-700 mb-2">
+                                File
+                            </label>
+                            <input type="file" name="file"
+                                class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                id="file_input">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, DOCX, TXT, MP4, MKV, PNG, or
+                                JPG (Max 300MB).</p>
+                        </div>
+                        <div class="flex w-full sm:justify-end mt-5 gap-3">
+                            <button type="submit"
+                                class="py-2 px-4 flex justify-center items-center w-1/2 sm:w-1/4 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                <svg width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 1792 1792"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z">
+                                    </path>
+                                </svg>
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                @else
+                    <form action="{{ route('submission.store', $tugas->id) }}" method="post" class="py-6 flex flex-col gap-5"
+                        autocomplete="off" enctype="multipart/form-data">
+                        @csrf
+                        @method('POST')
+                        <div class="relative w-full md:w-[60%]">
+                            <label for="judul" class="text-gray-700 mb-2">
+                                Judul
+                                <span class="text-red-500 required-dot">
+                                    *
+                                </span>
+                            </label>
+                            <input required type="text" id="judul"
+                                class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                name="judul" placeholder="Judul Tugas" />
+                            @error('judul')
+                            <p class="mt-1 text-sm text-red-600 dark:text-purple-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="relative w-full md:w-[60%]">
+                            <label for="required-email" class="text-gray-700 mb-2">
+                                Catatan
+                            </label>
+                            <textarea name="catatan"
+                                class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                id="comment" placeholder="Enter your comment" rows="5" cols="40"></textarea>
+                        </div>
+                        <div class="relative w-full md:w-[60%]">
+                            <label for="file_input" class="text-gray-700 mb-2">
+                                File
+                            </label>
+                            <input type="file" name="file"
+                                class="flex-1 appearance-none border border-gray-500 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-md focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                                id="file_input">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF, DOCX, TXT, MP4, MKV, PNG, or
+                                JPG (Max 300MB).</p>
+                        </div>
+                        <div class="flex w-full sm:justify-end mt-5">
+                            <button type="submit"
+                                class="py-2 px-4 flex justify-center items-center w-1/2 sm:w-1/4 bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                <svg width="20" height="20" fill="currentColor" class="mr-2" viewBox="0 0 1792 1792"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1344 1472q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm256 0q0-26-19-45t-45-19-45 19-19 45 19 45 45 19 45-19 19-45zm128-224v320q0 40-28 68t-68 28h-1472q-40 0-68-28t-28-68v-320q0-40 28-68t68-28h427q21 56 70.5 92t110.5 36h256q61 0 110.5-36t70.5-92h427q40 0 68 28t28 68zm-325-648q-17 40-59 40h-256v448q0 26-19 45t-45 19h-256q-26 0-45-19t-19-45v-448h-256q-42 0-59-40-17-39 14-69l448-448q18-19 45-19t45 19l448 448q31 30 14 69z">
+                                    </path>
+                                </svg>
+                                Upload
+                            </button>
+                        </div>
+                    </form>
+                @endif
+                
             </div>
         </div>
     </div>

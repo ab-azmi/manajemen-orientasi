@@ -14,7 +14,7 @@ Breadcrumbs::for('penugasan.index', function (BreadcrumbTrail $trail): void {
 
 Breadcrumbs::for('penugasan.show', function (BreadcrumbTrail $trail, Tugas $penugasan): void {
     $trail->parent('penugasan.index');
-    $trail->push($penugasan->name, route('penugasan.show', $penugasan));
+    $trail->push(Str::limit($penugasan->name, 20), route('penugasan.show', $penugasan));
 });
 
 Breadcrumbs::for('penugasan.create', function (BreadcrumbTrail $trail): void {
@@ -23,8 +23,8 @@ Breadcrumbs::for('penugasan.create', function (BreadcrumbTrail $trail): void {
 });
 
 Breadcrumbs::for('penugasan.responses', function (BreadcrumbTrail $trail, Tugas $penugasan): void {
-    $trail->parent('penugasan.index');
-    $trail->push(Str::limit($penugasan->name, 15, '...'), route('penugasan.responses', $penugasan));
+    $trail->parent('penugasan.show', $penugasan);
+    $trail->push('Respones', route('penugasan.responses', $penugasan));
 });
 
 Breadcrumbs::for('groups.index', function (BreadcrumbTrail $trail): void {
@@ -43,4 +43,9 @@ Breadcrumbs::for('event_days.index', function (BreadcrumbTrail $trail): void {
 Breadcrumbs::for('event_days.show', function (BreadcrumbTrail $trail, EventDay $event_day): void {
     $trail->parent('event_days.index');
     $trail->push($event_day->name, route('event_days.show', $event_day));
+});
+
+Breadcrumbs::for('event_days.create', function (BreadcrumbTrail $trail): void {
+    $trail->parent('event_days.index');
+    $trail->push('Create', route('event_days.create'));
 });

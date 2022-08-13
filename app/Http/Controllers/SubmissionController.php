@@ -39,8 +39,7 @@ class SubmissionController extends Controller
             $file_date = Carbon::parse($validated['date_submitted'])->format('d-m-y');
             $filename = $file_date.'-'.Auth::id().'-'.$hashed;
 
-            Storage::disk('local')->put('submissions', $request->file('file'));
-            $path = Storage::url($filename);
+            $path = Storage::putFileAs('submissions', $request->file('file'), $filename);
             $validated['file'] = $path;
         }
 
@@ -56,37 +55,46 @@ class SubmissionController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(SubmissionRequest $request, $tugas, Submission $submission)
     {
-        //
+        $validated = $request->validated();
+        $validated['date_submitted'] = Carbon::now()->toDateTimeString();
+        $validated['user_id'] = Auth::id();
+        $validated['tugas_id'] = $tugas;
+
+        if ($request->hasFile('file')) {
+            $hashed = $request->file('file')->hashName();
+            $file_date = Carbon::parse($validated['date_submitted'])->format('d-m-y');
+            $filename = $file_date . '-' . Auth::id() . '-' . $hashed;
+
+            $path = Storage::putFileAs('submissions', $request->file('file'), $filename);
+            $validated['file'] = $path;
+        }
+
+        $submission->update($validated);
+        User::find(Auth::id())->tugas()->updateExistingPivot($tugas, ['status' => 1  ]);
+
+        return back()->with('success', 'Tugas berhasil diubah!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    
+    public function destroy(Submission $submission)
     {
-        //
+        $submission->user->tugas()->updateExistingPivot($submission->tugas->id, ['status' => 0]);
+        $submission->delete();
+        return back()->with('success', 'Submission berhasil dihapus!!');
+    }
+
+    public function download(Submission $submission)
+    {
+        // dd($submission->file);
+        return Storage::download($submission->file);
     }
 }
+

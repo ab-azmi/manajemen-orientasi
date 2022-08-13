@@ -2,7 +2,7 @@
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
         <div class="w-full mt-3">
             <div class="flex flex-row mb-1 sm:mb-0 justify-between w-full">
-                <h2 class="text-2xl leading-tight">
+                <h2 class="text-base leading-tight">
                     {{ Breadcrumbs::render() }}
                 </h2>
                 <div class="text-end">
@@ -48,49 +48,63 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($penugasan->submissions as $sub)
-                                
+                            @foreach ($penugasan->submissions as $submission)
+
                             <tr>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
-                                            <a href="#" class="block relative">
-                                                <img alt="profil" src="/images/person/8.jpg"
-                                                    class="mx-auto object-cover rounded-full h-10 w-10 " />
-                                            </a>
-                                        </div>
+                                        
                                         <div class="ml-3">
                                             <p class="text-gray-900 whitespace-no-wrap">
-                                                Jean marc
+                                                {{ $submission->user->name }}
                                             </p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        Admin
+                                        {{ Str::limit($submission->catatan, 20) }}
                                     </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap">
-                                        12/09/2020
+                                        {{ $submission->date_submitted->diffForHumans() }}
                                     </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <span
+                                    @if ($submission->file)
+                                    <a href="{{ route('submission.download', $submission) }}"
                                         class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                         <span aria-hidden="true"
                                             class="absolute inset-0 bg-green-200 opacity-50 rounded-full">
                                         </span>
                                         <span class="relative">
-                                            active
+                                            download
                                         </span>
-                                    </span>
+                                    </a>
+                                    @else
+                                        <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                            <span aria-hidden="true" class="absolute inset-0 bg-red-200 opacity-50 rounded-full">
+                                            </span>
+                                            <span class="relative">
+                                                none
+                                            </span>
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                        Edit
-                                    </a>
+                                    <div class="flex gap-3">
+                                        <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                                            Edit
+                                        </a>
+                                        <form action="{{ route('submission.destroy', $submission) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

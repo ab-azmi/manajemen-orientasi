@@ -17,7 +17,7 @@ class EventFactory extends Factory
      */
     public function definition()
     {
-        $colors = ['green', 'purple', 'yellow'];
+        $colors = ['bg-green-100', 'bg-purple-100', 'bg-yellow-100'];
         return [
             'name' => $this->faker->sentence(3),
             'color' => $colors[array_rand($colors)],

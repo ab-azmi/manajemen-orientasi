@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventRequest;
+use App\Models\Event;
 use App\Models\EventDay;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class EventDayController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,31 +16,36 @@ class EventDayController extends Controller
      */
     public function index()
     {
-        $event_days = EventDay::with('events')->orderBy('day_date')->get();
-        return view('event_days.index', compact('event_days'));
+        //
     }
 
-    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        return view('event_days.create');
+        //
     }
 
-    
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeEvent(EventRequest $request, EventDay $event_day)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'day_date' => 'required'
-        ]);
-        $validated = $validator->validated();
+        $validated = $request->validated();
 
-        $event_day = EventDay::create($validated);
-
-        if($event_day){
-            return redirect()->route('event_days.show', $event_day)->with('success', 'Event Day berhasil dibuat!');
+        $validated['event_day_id'] = $event_day->id;
+        $colors = ['green', 'purple', 'yellow'];
+        $e = Event::create($validated);
+        if($e){
+            return back()->with('success', 'Event berhasil dibuat');
         }else{
-            return back()->with('error', 'Event Day gagal dibuat!');
+            return back()->with('error', 'Event gagal dibuat!');
         }
     }
 
@@ -49,10 +55,9 @@ class EventDayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(EventDay $event_day)
+    public function show($id)
     {
-        $events = $event_day->with('events')->get();
-        return view('event_days.show', compact('event_day', 'events'));
+        //
     }
 
     /**

@@ -44,3 +44,8 @@ Breadcrumbs::for('event_days.show', function (BreadcrumbTrail $trail, EventDay $
     $trail->parent('event_days.index');
     $trail->push($event_day->name, route('event_days.show', $event_day));
 });
+
+Breadcrumbs::for('event_days.create', function (BreadcrumbTrail $trail): void {
+    $trail->parent('event_days.index');
+    $trail->push('Create', route('event_days.create'));
+});

@@ -9,6 +9,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\EventDayController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\PenugasanController;
 use App\Http\Controllers\SubmissionController;
 
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function(){
     
     Route::patch('/absens/toggle_status/{sesi}', [AbsensiController::class, 'toggleStatus'])->name('absens.toggle');
     Route::get('/penugasan/response/{penugasan}', [PenugasanController::class, 'responses'])->name('penugasan.responses');
+
+    Route::post('/event_day/{event_day}/store/event/', [EventController::class, 'storeEvent'])->name('event.store');
 
     Route::post('/attachments', function(){
         request()->validate([

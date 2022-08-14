@@ -89,8 +89,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Event $event)
     {
-        //
+        $d = $event->delete();
+        if ($d) {
+            return back()->with('success', 'Event berhasil dihapus');
+        } else {
+            return back()->with('error', 'Event gagal dihapus!');
+        }
     }
 }

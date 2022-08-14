@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function(){
         'submission'=> SubmissionController::class,
         'groups'=> GroupController::class,
         'event_days'=> EventDayController::class,
+        'events'=> EventController::class,
         'absens'=> AbsensiController::class,
     ]);
     

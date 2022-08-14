@@ -35,7 +35,7 @@
                     </a>
                 </div>
                 @foreach ($event_day->events as $event)
-                <div class="flex items-center mb-2 rounded justify-between p-3 {{$event->color}}">
+                <a href="" class="flex hover:shadow-sm hover:-translate-y-2 transition items-center mb-2 rounded justify-between p-3 {{$event->color}}">
                     <span class="rounded-lg p-2 bg-white">
                         <i class="fa-solid fa-heart"></i>
                     </span>
@@ -47,7 +47,7 @@
                             {{ \Carbon\Carbon::parse($event->time)->format('H:i') }}
                         </p>
                     </div>
-                </div>
+                </a>
                 @endforeach
             </div>
             @endforeach

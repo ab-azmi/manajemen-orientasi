@@ -21,7 +21,7 @@
                         </label>
                         <input required type="text" id="name" name="name"
                             class=" rounded-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                            placeholder="Hari Pertama" />
+                            placeholder="Upacara" />
                     </div>
 
                     <label class="text-gray-700" for="animals">
@@ -57,7 +57,9 @@
 
                     <label class="text-gray-700" for="name">
                         Catatan
-                        <textarea name="catatan" class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" id="comment" placeholder="Enter your comment" name="comment" rows="5" cols="40"></textarea>
+                        <textarea name="catatan"
+                            class="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                            id="comment" placeholder="Enter your comment" name="comment" rows="5" cols="40"></textarea>
                     </label>
 
                     <div class="w-full sm:w-1/2">
@@ -75,7 +77,7 @@
                 </form>
 
             </div>
-            <div class="shadow-lg rounded-xl w-full md:w-1/2 p-4 bg-white dark:bg-gray-800 relative overflow-hidden">
+            <div class="shadow-lg rounded-xl w-full md:w-[80%] p-4 bg-white dark:bg-gray-800 relative overflow-hidden">
                 <div class="w-full flex flex-row justify-between mb-6">
                     <div class="flex flex-col w-fit justify-start">
                         <p class="text-gray-800 dark:text-white text-xl font-semibold">
@@ -85,29 +87,27 @@
                             {{ \Carbon\Carbon::parse($event_day->day_date)->format('D, d-m-Y') }}
                         </p>
                     </div>
-                    <a href="{{ route('event_days.show', $event_day) }}"
-                        class="flex items-center hover:text-black dark:text-gray-50 dark:hover:text-white text-gray-800 border-0 focus:outline-none">
-                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 1792 1792"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z">
-                            </path>
-                        </svg>
-                    </a>
                 </div>
-                @foreach ($event_day->events as $event)
-                <div class="flex items-center mb-2 rounded justify-between p-3 {{$event->color}}">
+                @foreach ($event_day->events()->orderBy('time')->get() as $event)
+                <div class="flex items-center mb-2 gap-3 rounded justify-between p-3 {{$event->color}}">
                     <span class="rounded-lg p-2 bg-white">
                         <i class="fa-solid fa-heart"></i>
                     </span>
                     <div class="flex w-full ml-2 items-center justify-between">
-                        <p>
+                        <p class="w-[80%]">
                             {{ Str::ucfirst($event->name) }}
                         </p>
                         <p>
                             {{ \Carbon\Carbon::parse($event->time)->format('H:i') }}
                         </p>
                     </div>
+                    <form action="{{ route('events.destroy', $event) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
                 </div>
                 @endforeach
             </div>

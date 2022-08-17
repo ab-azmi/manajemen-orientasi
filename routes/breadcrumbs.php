@@ -36,6 +36,11 @@ Breadcrumbs::for('groups.show', function (BreadcrumbTrail $trail, Group $group):
     $trail->push($group->name, route('groups.show', $group));
 });
 
+Breadcrumbs::for('groups.create', function (BreadcrumbTrail $trail): void {
+    $trail->parent('groups.index');
+    $trail->push('Create', route('groups.create',));
+});
+
 Breadcrumbs::for('event_days.index', function (BreadcrumbTrail $trail): void {
     $trail->push('Event Days', route('event_days.index'));
 });

@@ -1,7 +1,25 @@
 <x-app-layout>
     <div class="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
         <div class="mb-4 w-full">
-            {{ Breadcrumbs::render() }}
+            <div class="w-full flex justify-between">
+                {{ Breadcrumbs::render() }}
+                <div class="w-ft flex gap-4">
+                    <form action="{{ route('groups.destroy', $group) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="py-2 px-4 flex justify-center items-center  bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                            <i class="fa-solid fa-trash mr-3"></i>
+                            Delete
+                        </button>
+                    </form>
+                    <a href=""
+                        class="py-2 px-4 flex justify-center items-center h-fit  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                        <i class="fa-solid fa-pen-to-square mr-3"></i>
+                        Update
+                    </a>
+                </div>
+            </div>
 
             <div class="p-8 bg-white dark:bg-gray-800 rounded-lg shadow mb-5">
                 <p class="text-center text-3xl font-bold text-gray-800 dark:text-white">

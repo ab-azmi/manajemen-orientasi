@@ -46,6 +46,10 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/event_day/{event_day}/store/event/', [EventController::class, 'storeEvent'])->name('event.store');
 
+    Route::post('groups/tambah_anggota/{group}', [GroupController::class, 'tambahAnggota'])->name('groups.anggota');
+    Route::delete('groups/{group}/remove/{user}', [GroupController::class, 'removeAnggota'])->name('groups.removeAnggota'); 
+    Route::delete('groups/{group}/anggoata/remove/all', [GroupController::class, 'removeAll'])->name('groups.removeAll'); 
+
     Route::post('/attachments', function(){
         request()->validate([
             'attachment' => ['required', 'file'],

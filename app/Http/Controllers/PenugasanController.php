@@ -87,6 +87,7 @@ class PenugasanController extends Controller
      */
     public function destroy(Tugas $penugasan)
     {
+        $penugasan->users()->detach();
         $del = $penugasan->delete();
         if ($del) {
             return redirect()->route('penugasan.index')->with('success', 'Tugas berhasil dihapus');

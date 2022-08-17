@@ -39,6 +39,6 @@ class Group extends Model
 
     public function anggota(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'group_users', 'group_id', 'user_id')->wherePivot('penanggung_jawab', '=', null);
+        return $this->belongsToMany(User::class, 'group_users', 'group_id', 'user_id')->wherePivot('penanggung_jawab', '!=', 1);
     }
 }

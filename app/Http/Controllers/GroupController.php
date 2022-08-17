@@ -55,7 +55,8 @@ class GroupController extends Controller
     
     public function show(Group $group)
     {
-        return view('groups.show', compact('group'));
+        $users = User::has('groups', 0)->get();
+        return view('groups.show', compact('group', 'users'));
     }
 
     
@@ -77,8 +78,37 @@ class GroupController extends Controller
         $del = $group->delete();
 
         if ($del) {
-            return redirect()->route('groups.index')->with('success', 'Group berhasil dihapus');
+            return redirect()->route('groups.index')->with('success', 'Group berhasil tambahkan');
         }
         return redirect()->route('groups.index')->with('error', 'Group gagal dihapus');
+    }
+
+    public function tambahAnggota(Request $request, Group $group){
+        if($request->anggota){
+            $s = $group->users()->syncWithoutDetaching($request->anggota);
+            if($s){
+                return redirect()->route('groups.show', $group)->with('success', 'Anggota berhasil ditambahkan');
+            }
+        }
+        return redirect()->route('groups.show', $group)->with('error', 'Anggota gagal ditambahkan');
+    }
+
+    public function removeAnggota(Group $group, User $user){
+        $del = $group->users()->detach($user->id);
+        if ($del) {
+            return redirect()->route('groups.show', $group)->with('success', 'Anggota berhasil dihapus');
+        }
+        return redirect()->route('groups.show', $group)->with('error', 'Anggota gagal dihapus');
+    }
+
+    public function removeAll(Group $group)
+    {
+        $users = $group->anggota->pluck('id');
+
+        $del = $group->users()->detach($users);
+        if ($del) {
+            return redirect()->route('groups.show', $group)->with('success', 'Anggota berhasil dihapus');
+        }
+        return redirect()->route('groups.show', $group)->with('error', 'Anggota gagal dihapus');
     }
 }

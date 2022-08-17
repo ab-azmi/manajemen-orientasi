@@ -41,6 +41,9 @@ class EventController extends Controller
 
         $validated['event_day_id'] = $event_day->id;
         $colors = ['green', 'purple', 'yellow'];
+        if($validated['color'] == ''){
+            $validated['color'] = $colors[array_rand($colors)];
+        }
         $e = Event::create($validated);
         if($e){
             return back()->with('success', 'Event berhasil dibuat');

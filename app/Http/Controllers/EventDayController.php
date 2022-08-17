@@ -84,8 +84,13 @@ class EventDayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(EventDay $event_day)
     {
-        //
+        $del = $event_day->delete();
+
+        if ($del) {
+            return redirect()->route('event_days.index')->with('success', 'Day berhasil dihapus');
+        }
+        return redirect()->route('event_days.index')->with('error', 'Day gagal dihapus');
     }
 }

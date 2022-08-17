@@ -87,6 +87,13 @@
                             {{ \Carbon\Carbon::parse($event_day->day_date)->format('D, d-m-Y') }}
                         </p>
                     </div>
+                    <form action="{{ route('event_days.destroy', $event_day) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">
+                            <i class="fa-solid fa-trash text-red-600"></i>
+                        </button>
+                    </form>
                 </div>
                 @foreach ($event_day->events()->orderBy('time')->get() as $event)
                 <div class="flex items-center mb-2 gap-3 rounded justify-between p-3 {{$event->color}}">

@@ -5,7 +5,7 @@
         
             <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
                 <div class="text-slate-800 text-lg font-semibold mb-5">
-                    Tambah Penugasan
+                    Tambah Day Event
                 </div>
                 <form class="flex flex-col gap-5" action="{{ route('event_days.store') }}" method="post"
                     enctype="multipart/form-data" autocomplete="off">

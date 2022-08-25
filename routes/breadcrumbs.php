@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\Group;
 use App\Models\Tugas;
 use App\Models\EventDay;
+use App\Models\SesiAbsensi;
 use Illuminate\Support\Str;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
@@ -53,4 +54,13 @@ Breadcrumbs::for('event_days.show', function (BreadcrumbTrail $trail, EventDay $
 Breadcrumbs::for('event_days.create', function (BreadcrumbTrail $trail): void {
     $trail->parent('event_days.index');
     $trail->push('Create', route('event_days.create'));
+});
+
+Breadcrumbs::for('absens.index', function(BreadcrumbTrail $trail): void{
+    $trail->push('Absensi', route('absens.index'));
+});
+
+Breadcrumbs::for('absens.show', function(BreadcrumbTrail $trail, SesiAbsensi $absen):void{
+    $trail->parent('absens.index');
+    $trail->push($absen->name, route('absens.show', $absen));
 });

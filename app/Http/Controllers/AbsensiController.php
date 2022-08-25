@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Absensi;
 use App\Models\SesiAbsensi;
 use Illuminate\Http\Request;
@@ -47,9 +48,10 @@ class AbsensiController extends Controller
     }
 
     
-    public function show($id)
+    public function show(SesiAbsensi $absen)
     {
-        //
+        $users = User::with('absens')->latest()->simplePaginate(50, ['id', 'name', 'email']);
+        return view('absensi.show', compact('absen', 'users'));
     }
 
     

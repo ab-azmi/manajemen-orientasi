@@ -28,15 +28,7 @@ use App\Http\Controllers\SubmissionController;
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function(){
-    Route::resources([
-        'penugasan'=> PenugasanController::class,
-        'submission'=> SubmissionController::class,
-        'groups'=> GroupController::class,
-        'event_days'=> EventDayController::class,
-        'events'=> EventController::class,
-        'absens'=> AbsensiController::class,
-    ]);
-    
+       
     Route::get('submission/download/{submission}', [SubmissionController::class, 'download'])->name('submission.download');
     Route::post('/submission/submit/{id}', [SubmissionController::class, 'storeSubmission'])->name('submission.store');
     Route::patch('/submission/update/{tugas}/{submission}', [SubmissionController::class, 'update'])->name('submission.update');
@@ -48,7 +40,16 @@ Route::middleware('auth')->group(function(){
 
     Route::post('groups/tambah_anggota/{group}', [GroupController::class, 'tambahAnggota'])->name('groups.anggota');
     Route::delete('groups/{group}/remove/{user}', [GroupController::class, 'removeAnggota'])->name('groups.removeAnggota'); 
-    Route::delete('groups/{group}/anggoata/remove/all', [GroupController::class, 'removeAll'])->name('groups.removeAll'); 
+    Route::delete('groups/{group}/anggoata/remove/all', [GroupController::class, 'removeAll'])->name('groups.removeAll');
+
+    Route::resources([
+        'penugasan' => PenugasanController::class,
+        'submission' => SubmissionController::class,
+        'groups' => GroupController::class,
+        'event_days' => EventDayController::class,
+        'events' => EventController::class,
+        'absens' => AbsensiController::class,
+    ]);
 
     Route::post('/attachments', function(){
         request()->validate([
@@ -65,3 +66,4 @@ Route::middleware('auth')->group(function(){
 
 
 require __DIR__.'/auth.php';
+
